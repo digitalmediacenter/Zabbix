@@ -7,45 +7,57 @@
 #
 # RETURNED DATA:
 #
-#				ServerId 					           : 	A6EA4E77-BBFF-4F48-91CD-3987E81C1CB3
-#				Alias 						           : 	Disk pool 1
-#				Description 				         : 	
-#				PresenceStatus 				       : 	[Unknown, Present, NotPresent]																				                [Enum]::GetValues((Get-DcsPool)[0].PresenceStatus.GetType())
-#				PoolStatus 					         : 	[Running, Initializing, MissingDisks, Foreign, Offline, Unknown]											[Enum]::GetValues((Get-DcsPool)[0].PoolStatus.GetType())
-#				Type 						             : 	[Dynamic, Static, NonInitialize, Unknown]																	            [Enum]::GetValues((Get-DcsPool)[0].Type.GetType())
-#				ChunkSize 					         : 	128.00 MB
-#				MaxTierNumber 				       : 	3
-#				Id 							             : 	A6EA4E77-BBFF-4F48-91CD-3987E81C1CB3:{ea7c7a80-bdf3-11e0-8304-00155d11e921}
-#				Caption 					           : 	Disk pool 1
-#				ExtendedCaption 			       : 	Disk pool 1 on SSV1
-#				Internal 					           : 	False
-#				TotalBytesTransferred        :  117991668408320
-#				TotalBytesRead               :  64774275351040
-#				TotalBytesWritten            :  53217425588736
-#				TotalBytesMigrated           :  0
-#				TotalReads                   :  943129892
-#				TotalWrites                  :  3197418524
-#				TotalOperations              :  4140547577
-#				BytesAllocated               :  30385283006464
-#				BytesAvailable               :  11937190510592
-#				BytesInReclamation           :  0
-#				BytesTotal                   :  44354395701248
-#				PercentAllocated             :  74
-#				PercentAvailable             :  26
-#				TotalReadTime                :  15142325219
-#				TotalWriteTime               :  19396791451
-#				MaxReadTime                  :  31
-#				MaxWriteTime                 :  140
-#				MaxReadWriteTime             :  140
-#				MaxPoolBytes                 :  1112551148486656
-#				BytesReserved                :  2031922184192
-#				BytesAllocatedPercentage     :  70
-#				BytesReservedPercentage      :  4
-#				BytesInReclamationPercentage :  0
-#				BytesAvailablePercentage     :  26
-#				BytesOverSubscribed          :  6656930873344
-#				CollectionTime               :  26/11/2012 14:58:35
-#				NullCounterMap               :  0
+#	ServerId                     : 	A6EA4E77-BBFF-4F48-91CD-3987E81C1CB3
+#	Alias                        : 	Disk pool 1
+#	Description                  : 	
+#	PresenceStatus               : 	[Unknown, Present, NotPresent]																				                [Enum]::GetValues((Get-DcsPool)[0].PresenceStatus.GetType())
+#	PoolStatus                   : 	[Running, Initializing, MissingDisks, Foreign, Offline, Unknown]											[Enum]::GetValues((Get-DcsPool)[0].PoolStatus.GetType())
+#	Type                         : 	[Dynamic, Static, NonInitialize, Unknown]																	            [Enum]::GetValues((Get-DcsPool)[0].Type.GetType())
+#	ChunkSize                    : 	128.00 MB
+#	MaxTierNumber                : 	3
+#	Id                           : 	A6EA4E77-BBFF-4F48-91CD-3987E81C1CB3:{ea7c7a80-bdf3-11e0-8304-00155d11e921}
+#	Caption                      : 	Disk pool 1
+#	ExtendedCaption              : 	Disk pool 1 on SSV1
+#	Internal                     : 	False
+#	TotalBytesTransferred        :  117991668408320
+#	TotalBytesRead               :  64774275351040
+#	TotalBytesWritten            :  53217425588736
+#	TotalBytesMigrated           :  0
+#	TotalReads                   :  943129892
+#	TotalWrites                  :  3197418524
+#	TotalOperations              :  4140547577
+#	BytesAllocated               :  30385283006464
+#	BytesAvailable               :  11937190510592
+#	BytesInReclamation           :  0
+#	BytesTotal                   :  44354395701248
+#	PercentAllocated             :  74
+#	PercentAvailable             :  26
+#	TotalReadTime                :  15142325219
+#	TotalWriteTime               :  19396791451
+#	MaxReadTime                  :  31
+#	MaxWriteTime                 :  140
+#	MaxReadWriteTime             :  140
+#	MaxPoolBytes                 :  1112551148486656
+#	BytesReserved                :  2031922184192
+#	BytesAllocatedPercentage     :  70
+#	BytesReservedPercentage      :  4
+#	BytesInReclamationPercentage :  0
+#	BytesAvailablePercentage     :  26
+#	BytesOverSubscribed          :  6656930873344
+#	CollectionTime               :  26/11/2012 14:58:35
+#	NullCounterMap               :  0
+#
+# Aggregate data about specific tiers can be queried with the following items:
+# (Just replace "Tier1" with "Tier2" or "Tier3" for the different tiers; currently only queriable with PoolId, not pool name)
+#
+# 	Tier1BytesAllocated          : 134217728
+# 	Tier1BytesAvailable          : 3976737062912
+# 	Tier1BytesInReclamation      : 0
+# 	Tier1BytesRecovered          : 0
+# 	Tier1BytesRemainingToRecover : 0
+# 	Tier1BytesTotalToRecover     : 0
+# 	Tier1BytesMigrated           : 0
+# 	Tier1NullCounterMap          : 0
 #
 # USAGE:
 #   as a script:    C:\WINDOWS\system32\windowspowershell\v1.0\powershell.exe -command  "& C:\Progra~1\Zabbix\scripts\Get-DcsPoolDisk.ps1 <DCS> <DCS_USERNAME> <DCS_PASSWORD> <ITEM_TO_QUERY> <INDEX>"
@@ -54,7 +66,7 @@
 # Add to Zabbix Agent
 # 	UserParameter=DcsPoolDisk[*],powershell.exe -nologo -command "& C:\Progra~1\Zabbix\scripts\Get-DcsPoolDisk.ps1 $1 $2 $3 $4 $5"
 #
-$version = "1.0.0"
+$version = "1.0.1"
 
 # Load SANsymphony-V Cmdlets
 $bpKey = 'BaseProductKey'
@@ -107,6 +119,11 @@ if ( $connection ) {
 				$query = Get-DcsPool -Connection $connection -Server $dcsserver.HostName | Where-Object {$_.Alias -like "*$INDEX*"} | Get-DcsPerformanceCounter
 				$ITEM = $ITEM.replace('Perf','')
 				[string]$query.$ITEM
+			} elseif ($ITEM -match "^Tier") {
+				$TIER = ($ITEM -replace 'Tier(\d).*','$1')
+				$ITEM = ($ITEM -replace 'Tier\d','')
+				$query = Get-DcsPoolMember -Connection $connection -Server $dcsserver.HostName | Where-Object {$_.DiskPoolId -eq "$INDEX" -and $_.DiskTier -eq $TIER} | Get-DcsPerformanceCounter | Measure-Object -Property $ITEM -Sum
+				[decimal]$query.Sum
 			} else {
 				$query = Get-DcsPool -Connection $connection -Server $dcsserver.HostName | Where-Object {$_.Alias -like "*$INDEX*"}
 				if ([string]$query.$ITEM -match "\d+ ([A-Z]B|B)") {
